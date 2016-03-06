@@ -28,6 +28,7 @@ cmd:option('-epsilon', 1e-5, 'zca epsilon')
 cmd:option('-learning_rate',1e-4,'learning rate')
 cmd:option('-batch_size',100,'batch size')
 cmd:option('-max_epoch',100,'number of passes through the training data')
+cmd:option('-kmeans_iterations',100,'number of k-means iterations')
 cmd:option('-output_path','images','path for output images')
 
 
@@ -73,11 +74,14 @@ if opt.pass_type >= 2 then
   centroids = dataset.train_x.new(opt.kernel_num, dataset.train_x:size(2),        opt.kernel_width*opt.kernel_width)
 
   for channel=1,dataset.train_x:size(2) do
-    centroids[{{}, channel, {}}] = kmeans(patches[{{}, channel, {}}], opt.kernel_num, 100)
+    centroids[{{}, channel, {}}] = kmeans(patches[{{}, channel, {}}], opt.kernel_num, opt.kmeans_iterations)
   end
 
 end
   
+--
+-- convolutional model
+--
 local pad = ( opt.kernel_width - 1 ) / 2
 local conv = nn.SpatialConvolution(dataset.train_x:size(2), opt.kernel_num, opt.kernel_width, opt.kernel_width, 1, 1, pad, pad)
   
@@ -87,6 +91,9 @@ conv_model:add(conv)
 conv_model:add(nn.ELU())
 conv_model:add(nn.Reshape(opt.kernel_num*dataset.train_x:size(3)*dataset.train_x:size(4)))
 
+--
+-- linear classifier
+--
 local class_model = nn.Sequential()
 class_model:add(nn.Linear(opt.kernel_num*dataset.train_x:size(3)*dataset.train_x:size(4), 10))
 class_model:add(nn.LogSoftMax())
@@ -124,7 +131,6 @@ local conv_weights = conv.weight:view(-1, opt.kernel_width)
 --
 local iterations = opt.max_epoch*dataset.train_x:size(1)/opt.batch_size
 local batch_start = 1
-
 
 function feval(x)
   if x ~= params then
