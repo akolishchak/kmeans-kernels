@@ -7,9 +7,9 @@ Inspired by http://ai.stanford.edu/~ang/papers/nipsdlufl10-AnalysisSingleLayerUn
 
 The results for MNIST.
 
-traing type|train, %|test, %
 ---
 8 kernels, 3x3
+traing type|train, %|test, %
 ---|---|---
 random|98.17|94.63
 back-pro|98.99|95.62
