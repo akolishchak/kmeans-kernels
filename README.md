@@ -5,7 +5,7 @@ The network is a single convolutional layer + a fully connected layer on top. Fo
 
 Inspired by http://ai.stanford.edu/~ang/papers/nipsdlufl10-AnalysisSingleLayerUnsupervisedFeatureLearning.pdf
 
-Back-pro and k-means have similar performance for MNIST.
+Back-pro and k-means provide similar performance for MNIST.
 
 ## 8 kernels, 3x3
 traing type|train, %|test, %
