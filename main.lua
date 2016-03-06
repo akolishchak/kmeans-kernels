@@ -19,8 +19,8 @@ cmd:text('k-means cnn kernels')
 cmd:text()
 cmd:text('Options')
 cmd:option('-pass_type', 2, '0 - linear training, 1 - cnn training, 2 - kmeans cnn')
-cmd:option('-kernel_num', 8, 'number of features')
 cmd:option('-kernel_width', 15, 'kernel width')
+cmd:option('-kernel_num', 8, 'number of kernels')
 cmd:option('-whitening', 1, 'data whitening')
 cmd:option('-gpu',2,'0 - cpu, 1 - cunn, 2 - cudnn')
 cmd:option('-patch_num', 50000, 'snumber of patches')
@@ -98,17 +98,19 @@ local class_model = nn.Sequential()
 class_model:add(nn.Linear(opt.kernel_num*dataset.train_x:size(3)*dataset.train_x:size(4), 10))
 class_model:add(nn.LogSoftMax())
 
+local model = nn.Sequential()
+model:add(conv_model)
+model:add(class_model)
+
 local criterion = nn.ClassNLLCriterion()
 
 
 if opt.gpu > 0 then
-  conv_model:cuda()
-  class_model:cuda()
+  model:cuda()
   criterion:cuda()
   
   if opt.gpu == 2 then
-    cudnn.convert(conv_model, cudnn)
-    cudnn.convert(class_model, cudnn)
+    cudnn.convert(model, cudnn)
     cudnn.convert(criterion, cudnn)
     cudnn.benchmark = true
   end
@@ -122,7 +124,7 @@ if opt.pass_type >= 2 then
   conv.bias:zero()
 end
 
-local params, grad_params = class_model:getParameters()
+local params, grad_params = model:getParameters()
 
 local conv_weights = conv.weight:view(-1, opt.kernel_width)
 
@@ -149,10 +151,10 @@ function feval(x)
   
   -- back prop
   local dloss_doutput = criterion:backward(output, target)
-  class_model:backward(conv_input, dloss_doutput)
+  local dloss_dclass = class_model:backward(conv_input, dloss_doutput)
   
   if opt.pass_type == 1 then
-    class_model:backward(input, dloss_doutput)
+    conv_model:backward(input, dloss_dclass)
   end
   
   return loss, grad_params

@@ -5,50 +5,46 @@ The network is a single convolutional layer + a fully connected layer on top. Fo
 
 Inspired by http://ai.stanford.edu/~ang/papers/nipsdlufl10-AnalysisSingleLayerUnsupervisedFeatureLearning.pdf
 
-The results for MNIST.
+Back-pro and k-means have similar performance for MNIST.
 
-8 kernels, 3x3
----
+## 8 kernels, 3x3
 traing type|train, %|test, %
 ---|---|---
-random|98.17|94.63
-back-pro|98.99|95.62
-k-means|**100**|95.02
+random|98.22|94.79
+back-pro|**100**|96.50
+k-means|**100**|95.13
 
-8 kernels, 5x5
----
+## 8 kernels, 5x5
 traing type|train, %|test, %
 ---|---|---
-random|98.58|94.66
-back-pro|98.10|94.25
-k-means|**100**|95.47
+random|98.36|94.63
+back-pro|**100**|96.96
+k-means|**100**|96.02
 
-8 kernels, 7x7
----
+## 8 kernels, 7x7
 traing type|train, %|test, %
 ---|---|---
-random|98.33|94.67
-back-pro|98.15|94.25
-k-means|**100**|96.99
+random|98.37|94.58
+back-pro|**100**|97.48
+k-means|**100**|95.13
 
-8 kernels, 11x11
----
+## 8 kernels, 11x11
 traing type|train, %|test, %
 ---|---|---
-random|97.54|93.84
-back-pro|97.70|94.11
-k-means|**99.97**|97.26
+random|97.70|93.78
+back-pro|**100**|97.51
+k-means|**99.98**|97.47
 
-8 kernels, 15x15
----
+## 8 kernels, 15x15
 traing type|train, %|test, %
 ---|---|---
-random|97.27|93.77
-back-pro|97.38|93.87
-k-means|**99.89**|96.52
+random|97.29|93.63
+back-pro|**100**|97.68
+k-means|**99.96**|96.97
 ---
 
-8 kernels (15x15) learned by k-means
+## 8 kernels (15x15) learned by back-pro
+![alt tag](images/weights-1.jpg)
 
+## 8 kernels (15x15) learned by k-means
 ![alt tag](images/weights-2.jpg)
-
