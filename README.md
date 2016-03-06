@@ -14,7 +14,7 @@ traing type|train, %|test, %
 random|98.17|94.63
 back-pro|98.99|95.62
 k-means|**100**|95.02
----
+
 8 kernels, 5x5
 ---
 traing type|train, %|test, %
@@ -22,7 +22,7 @@ traing type|train, %|test, %
 random|98.58|94.66
 back-pro|98.10|94.25
 k-means|**100**|95.47
----
+
 8 kernels, 7x7
 ---
 traing type|train, %|test, %
@@ -30,7 +30,7 @@ traing type|train, %|test, %
 random|98.33|94.67
 back-pro|98.15|94.25
 k-means|**100**|96.99
----
+
 8 kernels, 11x11
 ---
 traing type|train, %|test, %
@@ -38,7 +38,7 @@ traing type|train, %|test, %
 random|97.54|93.84
 back-pro|97.70|94.11
 k-means|**99.97**|97.26
----
+
 8 kernels, 15x15
 ---
 traing type|train, %|test, %
@@ -48,6 +48,7 @@ back-pro|97.38|93.87
 k-means|**99.89**|96.52
 ---
 
+8 kernels (15x15) learned by k-means
 
 ![alt tag](images/weights-2.jpg)
 
