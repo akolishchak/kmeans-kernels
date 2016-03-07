@@ -1,7 +1,7 @@
 # kmeans-kernels
 Convolutional kernels learned by k-means
 
-The network is a single convolutional layer + a fully connected layer on top. For evaluation the convolutional layer weights are (1) initialized randomly, (2) learned through back-propogation and (3) learned by k-means.
+The network is a single convolutional layer + a fully connected layer on top. For evaluation the convolutional layer weights are (1) initialized randomly, (2) learned through back-propogation or (3) learned by k-means.
 
 Inspired by http://ai.stanford.edu/~ang/papers/nipsdlufl10-AnalysisSingleLayerUnsupervisedFeatureLearning.pdf
 
