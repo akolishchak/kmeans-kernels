@@ -24,10 +24,10 @@ function kmeans(x, c_num, max_iter)
     -- find closest centroids
     --
     for c = 1,c_num do
-      local centroid = torch.repeatTensor(centroids[c], x:size(1), 1)
+      --print(centroids[c])
+      local centroid = centroids[c]:view(1,-1):expandAs(x)
       dist[{{},{c}}] = torch.norm(x - centroid, 2, 2)
     end
-    collectgarbage(); collectgarbage()
   
     _, centroid_idx = torch.min(dist, 2)
     centroid_idx:resize(centroid_idx:size(1))
